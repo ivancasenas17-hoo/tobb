@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For the person I love</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffb199);
+    background-size:300% 300%;
+    animation:bgMove 10s infinite alternate;
+    overflow:hidden;
+}
+
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    100%{background-position:100% 50%;}
+}
+
+/* BIG CARD */
+.card{
+    width:600px;
+    max-width:90%;
+    min-height:500px;
+    padding:50px;
+    background:rgba(255,255,255,0.18);
+    backdrop-filter:blur(15px);
+    border-radius:25px;
+    text-align:center;
+    color:black;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.step{
+    display:none;
+    animation:fade 1s ease;
+}
+
+.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+h2{
+    font-size:28px;
+    margin-bottom:15px;
+}
+
+p{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+/* GIF STYLE */
+.gif{
+    width:260px;
+    margin:15px 0;
+    border-radius:15px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+    margin:10px;
+}
+
+.next{
+    background:#ff4b7d;
+    color:white;
+}
+
+.next:hover{
+    transform:scale(1.1);
+}
+
+.yes{
+    background:#ff4b7d;
+    color:white;
+}
+
+.yes:hover{
+    transform:scale(1.1);
+}
+
+.no{
+    background:white;
+    color:#ff4b7d;
+    position:absolute;
+}
+
+.celebrate{
+    font-size:50px;
+    animation:pop 0.8s infinite alternate;
+}
+
+@keyframes pop{
+    from{transform:scale(1);}
+    to{transform:scale(1.2);}
+}
+
+/* floating hearts */
+.heart{
+    position:absolute;
+    bottom:-10px;
+    font-size:20px;
+    animation:float 10s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+        <h2>HELLOOOOOO!</h2>
+        <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="gif">
+        <p>I have something special for you...</p>
+        <button class="next" onclick="nextStep(2)">Open It 💖</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+        <h2>You make my world brighter ✨</h2>
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" class="gif">
+        <p>Every moment with you feels magical.</p>
+        <button class="next" onclick="nextStep(3)">Next 🌹</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step" id="step3">
+        <h2>You are my favorite person🥰</h2>
+        <img src="duha.gif" class="gif">
+        <p>I feel lucky to have you in my life.</p>
+        <button class="next" onclick="nextStep(4)">One More 💕</button>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step" id="step4">
+        <h2>Will You Be My Valentine? 💘</h2>
+        <img src="https://media.giphy.com/media/26FLdmIp6wJr91JAI/giphy.gif" class="gif">
+        <button class="yes" onclick="celebrate()">Yes 💖</button>
+        <button class="no" id="noBtn">No 🙈</button>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" id="step5">
+        <h2 class="celebrate">YAYYY 💖🎉</h2>
+        <img src="wan.gif" class="gif">
+        <p>I can't wait to spend Valentine's with you!</p>
+        <p>Please take care always po!😽</p>
+    </div>
+
+</div>
+
+<script>
+function nextStep(step){
+    document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
+    document.getElementById("step"+step).classList.add("active");
+}
+
+function celebrate(){
+    nextStep(5);
+    setInterval(createHeart,200);
+}
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",function(){
+    const x = Math.random() * 400;
+    const y = Math.random() * 300;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=(Math.random()*30+40)+"px";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },6000);
+}
+</script>
+
+</body>
+</html>
